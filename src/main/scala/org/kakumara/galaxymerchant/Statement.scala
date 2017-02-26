@@ -15,10 +15,17 @@ object Statement {
 }
 
 class Statement(tokens: Seq[String], query: Boolean, creditValue: Int = 0, romanDigit: RomanDigit = null) {
+  def getCreditValue = creditValue
 
-  def isQuery() = this.query
+  def isRateAdjustment = creditValue != 0
 
-  def getTokens() = tokens
+  def getRomanDigit = romanDigit
+
+  def isLiteralUpdate = romanDigit != null
+
+  def isQuery = this.query
+
+  def getTokens = tokens
 }
 
 

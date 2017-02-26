@@ -12,7 +12,7 @@ class RomanNumber(romanString: String) {
 
   require(!romanString.isEmpty && !consecutiveChars.findFirstMatchIn(romanString).isDefined, "Invalid roman string")
 
-  def toInt(): Int = {
+  def toInt = {
     convert(romanString.toCharArray, 0)
   }
 
