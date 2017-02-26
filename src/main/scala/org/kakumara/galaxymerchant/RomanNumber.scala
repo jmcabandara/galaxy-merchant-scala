@@ -7,7 +7,6 @@ object RomanNumber {
 }
 
 class RomanNumber(romanString: String) {
-
   val consecutiveChars = """(.*)\\1\\1\\1""".r
   val validPreDigits = Map(V -> I, X -> I, L -> X, C -> X, D -> C, M -> C)
 
@@ -25,16 +24,15 @@ class RomanNumber(romanString: String) {
       val lastRoman = RomanDigit.withName(romanChars(romanChars.length - 1).toString)
       val prevRoman = RomanDigit.withName(romanChars(romanChars.length - 2).toString)
 
-      if (prevRoman.eq(validPreDigits.getOrElse(lastRoman, null))) {
-        val newTotal = total + (lastRoman.id - prevRoman.id)
-        if (romanChars.length == 2) {
-          return newTotal
-        }
-        else {
-          return convert(romanChars.dropRight(2), newTotal)
-        }
+      validPreDigits.getOrElse(lastRoman, null) match {
+        case rd if rd == prevRoman =>
+          val newTotal = total + (lastRoman.id - rd.id)
+          if (romanChars.length == 2) newTotal
+          else convert(romanChars.dropRight(2), newTotal)
+
+        case _ => convert(romanChars.dropRight(1), total + lastRoman.id)
       }
-      convert(romanChars.dropRight(1), total + lastRoman.id)
+
     }
   }
 }
